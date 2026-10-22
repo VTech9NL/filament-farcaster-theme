@@ -6,7 +6,7 @@
         --polder-theme-radius-md: 0.25rem;
         --polder-theme-radius-lg: 0.3rem;
         --polder-theme-radius-xl: 0.35rem;
-        --polder-theme-inset: 0.5rem;
+        --polder-theme-inset: calc(var(--polder-theme-spacing) * 2);
     }
 
     .fi-body {
