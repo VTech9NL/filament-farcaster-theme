@@ -23,6 +23,7 @@ use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use VTech9NL\PolderTheme\PolderThemeServiceProvider;
 use VTech9NL\PolderTheme\Tests\Fixtures\AppPanelProvider;
 use VTech9NL\PolderTheme\Tests\Fixtures\CompactPanelProvider;
+use VTech9NL\PolderTheme\Tests\Fixtures\PlainPanelProvider;
 use VTech9NL\PolderTheme\Tests\Fixtures\User;
 
 class TestCase extends Orchestra
@@ -46,6 +47,7 @@ class TestCase extends Orchestra
             PolderThemeServiceProvider::class,
             AppPanelProvider::class,
             CompactPanelProvider::class,
+            PlainPanelProvider::class,
         ];
     }
 
