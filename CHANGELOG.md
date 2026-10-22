@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.1 - 2026-10-22
+
+- The mobile bar accepts file uploads only into the upload fields of its actions' forms, as Filament's own pages do. Other upload attempts get a 403.
+
 ## v0.3.0 - 2026-10-22
 
 - `MobileNavigation::visible()` hides the mobile bar on the pages you choose. The closure can receive `$routeName` and `$routeParameters`.

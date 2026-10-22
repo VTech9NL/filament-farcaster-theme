@@ -16,6 +16,7 @@ use Filament\Models\Contracts\HasTenants;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Concerns\RestrictsFileUploadsToSchemaComponents;
 use Filament\Schemas\Contracts\HasSchemas;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Support\Htmlable;
@@ -35,6 +36,7 @@ class MobileNavigationBar extends Component implements HasActions, HasSchemas
     use HasUserMenu;
     use InteractsWithActions;
     use InteractsWithSchemas;
+    use RestrictsFileUploadsToSchemaComponents;
 
     public const CENTER_ACTION = 'polderCenter';
 

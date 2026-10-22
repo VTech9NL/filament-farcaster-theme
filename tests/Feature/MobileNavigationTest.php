@@ -155,6 +155,13 @@ it('hides the bar where the app says so', function () {
     get('/app/'.$this->team->getKey())->assertOk()->assertSee('polder-theme-mobile-navigation');
 });
 
+it('accepts file uploads only into the fields of its actions', function () {
+    Filament::setCurrentPanel('app');
+    Filament::setTenant($this->team, isQuiet: true);
+
+    livewire(MobileNavigationBar::class)->call('_startUpload', 'notAField', [], false)->assertForbidden();
+});
+
 it('renders no bar on a panel without mobile navigation', function () {
     get('/compact')->assertOk()->assertDontSee('polder-theme-mobile-navigation');
 });
