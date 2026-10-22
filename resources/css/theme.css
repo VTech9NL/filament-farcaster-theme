@@ -331,8 +331,9 @@
         --tw-ring-color: var(--polder-theme-surface);
     }
 
+    /* The negative margin keeps the 36px fill in a 24px slot, so its label lines up with the other items */
     .polder-theme-mobile-navigation-center-flat .polder-theme-mobile-navigation-icon {
-        @apply size-9 rounded-xl bg-primary-600 text-white dark:bg-primary-500;
+        @apply -my-1.5 size-9 rounded-xl bg-primary-600 text-white dark:bg-primary-500;
 
         & svg {
             @apply size-5;
