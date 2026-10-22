@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.2 - 2026-10-22
+
+- The flat centre button's label now lines up with the other labels in the mobile bar. Before, it sat 6px lower.
+
 ## v0.3.1 - 2026-10-22
 
 - The mobile bar accepts file uploads only into the upload fields of its actions' forms, as Filament's own pages do. Other upload attempts get a 403.
