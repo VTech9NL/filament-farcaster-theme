@@ -194,6 +194,18 @@ The bar puts the first half of the items to the left of the centre button and th
 
 All items take `->label()` and `->icon()`.
 
+### Visibility
+
+By default the bar shows on every page of the panel, for signed-in users. To hide it on some pages, for example a printable page or a full-screen map, pass a condition. The closure can receive the page's route:
+
+```php
+MobileNavigation::make()
+    ->visible(fn (?string $routeName): bool => ! in_array($routeName, [
+        'filament.admin.pages.print-labels',
+        'filament.admin.pages.floor-plan',
+    ]))
+```
+
 ### Using the current page
 
 The bar's closures can receive the page the bar was opened on. The action runs in a later Livewire request, so the bar keeps this for you:

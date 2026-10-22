@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.0 - 2026-10-22
+
+- `MobileNavigation::visible()` hides the mobile bar on the pages you choose. The closure can receive `$routeName` and `$routeParameters`.
+
 ## v0.2.1 - 2026-10-22
 
 - The replaced page header and user menu now apply only to panels that register the plugin. Other panels in the same app render Filament's own views. Before, they showed Polder's breadcrumb bar and user menu without Polder's CSS.
