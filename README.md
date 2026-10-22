@@ -1,7 +1,5 @@
 # Polder for Filament
 
-*Polder (Dutch): flat, calm land in an ordered grid of fields and water.*
-
 Polder is a theme for [Filament](https://filamentphp.com) v5 panels. It gives the panel an inset layout: the page content floats as a card on a quiet frame, next to a sidebar that holds the user menu. A breadcrumb bar with a sidebar toggle sits at the top of each page.
 
 - Light and dark mode, designed for each mode.
