@@ -23,7 +23,7 @@ class AppPanelProvider extends PanelProvider
             ->path('app')
             ->tenant(Team::class)
             ->tenantMenu(false)
-            ->pages([Dashboard::class])
+            ->pages([Dashboard::class, BreadcrumbPage::class])
             ->middleware([EncryptCookies::class, StartSession::class, ShareErrorsFromSession::class])
             ->authMiddleware([Authenticate::class])
             ->plugin(PolderThemePlugin::make());

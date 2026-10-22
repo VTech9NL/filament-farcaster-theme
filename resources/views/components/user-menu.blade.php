@@ -11,7 +11,13 @@
     use Filament\View\PanelsIconAlias;
     use Filament\View\PanelsRenderHook;
     use Illuminate\Support\Arr;
+    use VTech9NL\PolderTheme\PolderThemePlugin;
+@endphp
 
+@if (! filament()->getCurrentPanel()?->hasPlugin(PolderThemePlugin::ID))
+    @include('polder-theme::stock.user-menu')
+@else
+@php
     $user = filament()->auth()->user();
 
     $userName = filament()->getUserName($user);
@@ -172,3 +178,4 @@
 </x-filament::dropdown>
 
 {{ FilamentView::renderHook(PanelsRenderHook::USER_MENU_AFTER) }}
+@endif

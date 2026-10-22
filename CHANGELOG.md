@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.1 - 2026-10-22
+
+- The replaced page header and user menu now apply only to panels that register the plugin. Other panels in the same app render Filament's own views. Before, they showed Polder's breadcrumb bar and user menu without Polder's CSS.
+- Removed a style rule for `.fi-select-wrp`, a class that Filament does not have.
+
 ## v0.2.0 - 2026-10-22
 
 First public release.

@@ -10,10 +10,14 @@
     use Filament\Support\Facades\FilamentView;
     use Filament\View\PanelsRenderHook;
     use VTech9NL\PolderTheme\PolderRenderHook;
+    use VTech9NL\PolderTheme\PolderThemePlugin;
 
     use function Filament\Support\is_slot_empty;
 @endphp
 
+@if (! filament()->getCurrentPanel()?->hasPlugin(PolderThemePlugin::ID))
+    @include('polder-theme::stock.header')
+@else
 <div class="polder-theme-breadcrumb-bar">
     @if (filament()->hasNavigation() && (! filament()->hasTopbar()))
         <button
@@ -102,3 +106,4 @@
         {{ $actionsContent }}
     @endif
 </header>
+@endif
