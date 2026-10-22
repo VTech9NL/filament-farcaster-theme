@@ -25,7 +25,7 @@ class PolderThemeServiceProvider extends ServiceProvider
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_END,
             fn (): string => $this->isCompactPanel()
-                ? '<style>:root{--polder-spacing:var(--polder-spacing-compact)}</style>'
+                ? '<style>:root{--polder-theme-spacing:var(--polder-theme-spacing-compact)}</style>'
                 : '',
         );
     }

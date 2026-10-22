@@ -18,7 +18,7 @@ beforeEach(function () {
 it('renders the breadcrumb bar and the user menu header from the theme views', function () {
     get('/app/'.$this->team->getKey())
         ->assertOk()
-        ->assertSee('polder-breadcrumb-bar')
+        ->assertSee('polder-theme-breadcrumb-bar')
         ->assertSee('ada@example.com');
 });
 
@@ -47,7 +47,7 @@ it('has no tenant switcher when there is no other tenant', function () {
 });
 
 it('switches density to compact only on a compact panel', function () {
-    $compactDeclaration = '--polder-spacing:var(--polder-spacing-compact)';
+    $compactDeclaration = '--polder-theme-spacing:var(--polder-theme-spacing-compact)';
 
     get('/compact')->assertOk()->assertSee($compactDeclaration, escape: false);
     get('/app/'.$this->team->getKey())->assertOk()->assertDontSee($compactDeclaration, escape: false);

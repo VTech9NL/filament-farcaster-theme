@@ -1,33 +1,33 @@
-@layer polder {
+@layer polder-theme {
     :root {
-        --polder-spacing: 0.25rem;
-        --polder-spacing-compact: 0.2rem;
-        --polder-control-spacing: 0.25rem;
-        --polder-radius-md: 0.25rem;
-        --polder-radius-lg: 0.3rem;
-        --polder-radius-xl: 0.35rem;
-        --polder-inset: 0.5rem;
+        --polder-theme-spacing: 0.25rem;
+        --polder-theme-spacing-compact: 0.2rem;
+        --polder-theme-control-spacing: 0.25rem;
+        --polder-theme-radius-md: 0.25rem;
+        --polder-theme-radius-lg: 0.3rem;
+        --polder-theme-radius-xl: 0.35rem;
+        --polder-theme-inset: 0.5rem;
     }
 
     .fi-body {
-        --spacing: var(--polder-spacing);
-        --radius-md: var(--polder-radius-md);
-        --radius-lg: var(--polder-radius-lg);
-        --radius-xl: var(--polder-radius-xl);
-        --polder-ground: var(--gray-50);
-        --polder-surface: var(--color-white);
-        --polder-surface-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
-        --polder-rule: color-mix(in oklab, var(--gray-200) 50%, transparent);
-        --polder-layer-order: misordered;
+        --spacing: var(--polder-theme-spacing);
+        --radius-md: var(--polder-theme-radius-md);
+        --radius-lg: var(--polder-theme-radius-lg);
+        --radius-xl: var(--polder-theme-radius-xl);
+        --polder-theme-ground: var(--gray-50);
+        --polder-theme-surface: var(--color-white);
+        --polder-theme-surface-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
+        --polder-theme-rule: color-mix(in oklab, var(--gray-200) 50%, transparent);
+        --polder-theme-layer-order: misordered;
 
-        background-color: var(--polder-ground);
+        background-color: var(--polder-theme-ground);
     }
 
     .dark .fi-body {
-        --polder-ground: var(--gray-900);
-        --polder-surface: var(--gray-950);
-        --polder-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
-        --polder-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
+        --polder-theme-ground: var(--gray-900);
+        --polder-theme-surface: var(--gray-950);
+        --polder-theme-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --polder-theme-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
     }
 
     .fi-body,
@@ -46,14 +46,14 @@
     .fi-main-ctn {
         /* overflow-clip, not hidden: hidden makes a scroll container and breaks position: sticky inside */
         @apply min-h-svh overflow-clip;
-        background-color: var(--polder-surface);
+        background-color: var(--polder-theme-surface);
 
         @variant lg {
             @apply rounded-xl ring-1;
-            --tw-ring-color: var(--polder-surface-ring);
-            margin: var(--polder-inset);
-            margin-inline-start: calc(var(--polder-inset) / 2);
-            min-height: calc(100svh - 2 * var(--polder-inset));
+            --tw-ring-color: var(--polder-theme-surface-ring);
+            margin: var(--polder-theme-inset);
+            margin-inline-start: calc(var(--polder-theme-inset) / 2);
+            min-height: calc(100svh - 2 * var(--polder-theme-inset));
         }
     }
 
@@ -73,7 +73,7 @@
 
     .fi-sidebar.fi-main-sidebar {
         @apply border-e-0 p-3;
-        background-color: var(--polder-ground);
+        background-color: var(--polder-theme-ground);
     }
 
     .fi-sidebar-nav-groups {
@@ -94,13 +94,13 @@
 
     /* Breadcrumb bar */
 
-    .polder-breadcrumb-bar {
-        --spacing: var(--polder-control-spacing);
+    .polder-theme-breadcrumb-bar {
+        --spacing: var(--polder-theme-control-spacing);
         @apply -mx-4 flex h-16 shrink-0 items-center gap-2 border-b px-4;
-        border-color: var(--polder-rule);
+        border-color: var(--polder-theme-rule);
     }
 
-    .polder-sidebar-toggle {
+    .polder-theme-sidebar-toggle {
         @apply -ms-1 inline-flex size-7 shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200;
 
         & svg {
@@ -108,7 +108,7 @@
         }
     }
 
-    .polder-breadcrumb-bar-end {
+    .polder-theme-breadcrumb-bar-end {
         @apply ms-auto flex items-center;
     }
 
@@ -141,11 +141,11 @@
 
     .fi-input-wrp,
     .fi-select-wrp {
-        --spacing: var(--polder-control-spacing);
+        --spacing: var(--polder-theme-control-spacing);
     }
 
     .fi-btn {
-        --spacing: var(--polder-control-spacing);
+        --spacing: var(--polder-theme-control-spacing);
         @apply gap-2;
     }
 
@@ -195,7 +195,7 @@
     }
 
     .fi-user-menu-trigger:hover,
-    .fi-user-menu-trigger.polder-user-menu-trigger-active {
+    .fi-user-menu-trigger.polder-theme-user-menu-trigger-active {
         @apply bg-gray-100 dark:bg-gray-800;
     }
 
@@ -203,33 +203,33 @@
         @apply flex-1 truncate font-medium text-gray-950 dark:text-gray-50;
     }
 
-    .polder-user-menu-trigger-icon {
+    .polder-theme-user-menu-trigger-icon {
         @apply size-4 text-gray-500 dark:text-gray-400;
     }
 
-    .polder-user-menu-header {
+    .polder-theme-user-menu-header {
         @apply flex items-center gap-3 p-3;
     }
 
-    .polder-user-menu-header-meta {
+    .polder-theme-user-menu-header-meta {
         @apply min-w-0 flex-1;
     }
 
-    .polder-user-menu-header-name {
+    .polder-theme-user-menu-header-name {
         @apply truncate text-sm font-semibold text-gray-950 dark:text-gray-50;
     }
 
-    .polder-user-menu-header-email {
+    .polder-theme-user-menu-header-email {
         @apply truncate text-xs text-gray-500 dark:text-gray-400;
     }
 
-    .polder-user-menu-section-label {
+    .polder-theme-user-menu-section-label {
         @apply px-3 pt-2 pb-1 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400;
     }
 }
 
 @layer utilities {
     .fi-body {
-        --polder-layer-order: ok;
+        --polder-theme-layer-order: ok;
     }
 }

@@ -51,7 +51,7 @@ Polder is a theme for [Filament](https://filamentphp.com) v5 panels. It gives th
 To check the import order, run this in the browser console. It must return `ok`:
 
 ```js
-getComputedStyle(document.body).getPropertyValue('--polder-layer-order')
+getComputedStyle(document.body).getPropertyValue('--polder-theme-layer-order')
 ```
 
 ## Configuration
@@ -96,25 +96,25 @@ Polder reads these CSS custom properties. Set them after the imports in your the
 
 | Token | Default | Controls |
 | --- | --- | --- |
-| `--polder-spacing` | `0.25rem` | Spacing scale of the panel |
-| `--polder-spacing-compact` | `0.2rem` | Spacing scale when `->compact()` is on |
-| `--polder-control-spacing` | `0.25rem` | Spacing scale of fields, buttons and the breadcrumb bar |
-| `--polder-radius-md` | `0.25rem` | Small corners: fields, buttons |
-| `--polder-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
-| `--polder-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
-| `--polder-inset` | `0.5rem` | Space around the content card |
-| `--polder-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
-| `--polder-surface` | `white` / `gray-950` | Content card background |
-| `--polder-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
-| `--polder-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
+| `--polder-theme-spacing` | `0.25rem` | Spacing scale of the panel |
+| `--polder-theme-spacing-compact` | `0.2rem` | Spacing scale when `->compact()` is on |
+| `--polder-theme-control-spacing` | `0.25rem` | Spacing scale of fields, buttons and the breadcrumb bar |
+| `--polder-theme-radius-md` | `0.25rem` | Small corners: fields, buttons |
+| `--polder-theme-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
+| `--polder-theme-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
+| `--polder-theme-inset` | `0.5rem` | Space around the content card |
+| `--polder-theme-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
+| `--polder-theme-surface` | `white` / `gray-950` | Content card background |
+| `--polder-theme-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
+| `--polder-theme-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
 
 ```css
 :root {
-    --polder-radius-xl: 0.75rem;
+    --polder-theme-radius-xl: 0.75rem;
 }
 
 .dark .fi-body {
-    --polder-ground: var(--gray-950);
+    --polder-theme-ground: var(--gray-950);
 }
 ```
 
