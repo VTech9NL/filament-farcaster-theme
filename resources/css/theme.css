@@ -24,10 +24,44 @@
     }
 
     .dark .fi-body {
-        --polder-theme-ground: var(--gray-900);
-        --polder-theme-surface: var(--gray-950);
-        --polder-theme-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
-        --polder-theme-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
+        --polder-theme-ground: var(--gray-950);
+        --polder-theme-surface: color-mix(in oklab, var(--gray-900) 55%, var(--gray-950));
+        --polder-theme-surface-ring: color-mix(in oklab, var(--color-white) 8%, transparent);
+        --polder-theme-raised: color-mix(in oklab, var(--gray-800) 40%, var(--gray-900));
+        --polder-theme-raised-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --polder-theme-field: color-mix(in oklab, var(--color-white) 6%, transparent);
+        --polder-theme-divider: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --polder-theme-rule: var(--polder-theme-divider);
+    }
+
+    /* Dark mode layers: ground, then the content card, then raised containers, then fields */
+
+    .dark :is(
+            .fi-section:not(.fi-section-not-contained, .fi-aside, .fi-secondary),
+            .fi-section.fi-aside:not(.fi-section-not-contained, .fi-secondary) > .fi-section-content-ctn,
+            .fi-ta-ctn,
+            .fi-wi-stats-overview-stat,
+            .fi-dropdown-panel,
+            .fi-modal-window
+        ) {
+        background-color: var(--polder-theme-raised);
+        --tw-ring-color: var(--polder-theme-raised-ring);
+    }
+
+    .dark .fi-modal-window :is(.fi-modal-header, .fi-modal-footer) {
+        background-color: var(--polder-theme-raised);
+    }
+
+    .dark .fi-avatar {
+        @apply ring-1 ring-white/15;
+    }
+
+    .dark .fi-input-wrp:not(.fi-disabled) {
+        background-color: var(--polder-theme-field);
+    }
+
+    .dark :is(.fi-ta-table, .fi-ta-table > thead, .fi-ta-table > tbody) > * {
+        border-color: var(--polder-theme-divider);
     }
 
     .fi-body,

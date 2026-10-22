@@ -103,10 +103,14 @@ Polder reads these CSS custom properties. Set them after the imports in your the
 | `--polder-theme-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
 | `--polder-theme-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
 | `--polder-theme-inset` | `2 × --polder-theme-spacing` | Space around the content card |
-| `--polder-theme-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
-| `--polder-theme-surface` | `white` / `gray-950` | Content card background |
-| `--polder-theme-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
-| `--polder-theme-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
+| `--polder-theme-ground` | `gray-50` / `gray-950` | Frame and sidebar background |
+| `--polder-theme-surface` | `white` / between `gray-900` and `gray-950` | Content card background |
+| `--polder-theme-surface-ring` | `gray-950` 5% / `white` 8% | Content card outline |
+| `--polder-theme-raised` | dark only: between `gray-800` and `gray-900` | Sections, tables, stats, dropdowns and modals |
+| `--polder-theme-raised-ring` | dark only: `white` 10% | Outline of raised containers |
+| `--polder-theme-field` | dark only: `white` 6% | Form field background |
+| `--polder-theme-divider` | dark only: `white` 10% | Table row lines |
+| `--polder-theme-rule` | `gray-200` 50% / `white` 10% | Breadcrumb bar divider |
 
 ```css
 :root {
