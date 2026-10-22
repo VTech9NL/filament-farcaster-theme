@@ -1,0 +1,235 @@
+@layer farcaster {
+    :root {
+        --farcaster-spacing: 0.25rem;
+        --farcaster-spacing-compact: 0.2rem;
+        --farcaster-control-spacing: 0.25rem;
+        --farcaster-radius-md: 0.25rem;
+        --farcaster-radius-lg: 0.3rem;
+        --farcaster-radius-xl: 0.35rem;
+        --farcaster-inset: 0.5rem;
+    }
+
+    .fi-body {
+        --spacing: var(--farcaster-spacing);
+        --radius-md: var(--farcaster-radius-md);
+        --radius-lg: var(--farcaster-radius-lg);
+        --radius-xl: var(--farcaster-radius-xl);
+        --farcaster-ground: var(--gray-50);
+        --farcaster-surface: var(--color-white);
+        --farcaster-surface-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
+        --farcaster-rule: color-mix(in oklab, var(--gray-200) 50%, transparent);
+        --farcaster-layer-order: misordered;
+
+        background-color: var(--farcaster-ground);
+    }
+
+    .dark .fi-body {
+        --farcaster-ground: var(--gray-900);
+        --farcaster-surface: var(--gray-950);
+        --farcaster-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --farcaster-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
+    }
+
+    .fi-body,
+    .fi-body *,
+    .fi-body *::before,
+    .fi-body *::after {
+        --tw-shadow-color: transparent;
+    }
+
+    /* Inset layout: the content floats as a card on the ground colour */
+
+    .fi-layout {
+        @apply bg-transparent;
+    }
+
+    .fi-main-ctn {
+        /* overflow-clip, not hidden: hidden makes a scroll container and breaks position: sticky inside */
+        @apply min-h-svh overflow-clip;
+        background-color: var(--farcaster-surface);
+
+        @variant lg {
+            @apply rounded-xl ring-1;
+            --tw-ring-color: var(--farcaster-surface-ring);
+            margin: var(--farcaster-inset);
+            margin-inline-start: calc(var(--farcaster-inset) / 2);
+            min-height: calc(100svh - 2 * var(--farcaster-inset));
+        }
+    }
+
+    .fi-main {
+        @apply px-4 pt-0 pb-4;
+    }
+
+    .fi-page {
+        @apply flex flex-col gap-4;
+    }
+
+    .fi-page-header-main-ctn {
+        @apply gap-4 py-0;
+    }
+
+    /* Sidebar */
+
+    .fi-sidebar.fi-main-sidebar {
+        @apply border-e-0 p-3;
+        background-color: var(--farcaster-ground);
+    }
+
+    .fi-sidebar-nav-groups {
+        row-gap: calc(var(--spacing) * 2);
+    }
+
+    .fi-sidebar-footer {
+        @apply mt-auto;
+    }
+
+    .fi-sidebar-footer .fi-dropdown-panel {
+        @apply max-w-none;
+    }
+
+    .fi-sidebar .fi-global-search-results-ctn {
+        @apply sm:w-full;
+    }
+
+    /* Breadcrumb bar */
+
+    .farcaster-breadcrumb-bar {
+        --spacing: var(--farcaster-control-spacing);
+        @apply -mx-4 flex h-16 shrink-0 items-center gap-2 border-b px-4;
+        border-color: var(--farcaster-rule);
+    }
+
+    .farcaster-sidebar-toggle {
+        @apply -ms-1 inline-flex size-7 shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200;
+
+        & svg {
+            @apply size-4;
+        }
+    }
+
+    .farcaster-breadcrumb-bar-end {
+        @apply ms-auto flex items-center;
+    }
+
+    .fi-breadcrumbs-item:last-child .fi-breadcrumbs-item-label {
+        @apply font-medium;
+    }
+
+    .fi-header-heading {
+        @apply text-2xl leading-tight font-semibold tracking-tight;
+    }
+
+    /* Widgets */
+
+    .fi-wi {
+        @apply overflow-visible border-0 p-0 shadow-none ring-0;
+    }
+
+    /* Tables */
+
+    .fi-ta-header-cell {
+        @apply text-xs font-medium tracking-wide normal-case;
+    }
+
+    /* Without a search field the toolbar collapses and the filter badge overflows the divider */
+    .fi-ta-header-toolbar:not(:has(.fi-ta-search-field)) {
+        @apply pt-6 pb-4;
+    }
+
+    /* Form controls and buttons keep a full-size hit target in every density */
+
+    .fi-input-wrp,
+    .fi-select-wrp {
+        --spacing: var(--farcaster-control-spacing);
+    }
+
+    .fi-btn {
+        --spacing: var(--farcaster-control-spacing);
+        @apply gap-2;
+    }
+
+    .fi-btn:not(.fi-size-xs, .fi-size-sm, .fi-size-lg, .fi-size-xl) {
+        @apply h-9 px-4 py-0;
+    }
+
+    .fi-btn.fi-size-xs {
+        @apply h-6 gap-1 px-2 py-0 text-xs;
+    }
+
+    .fi-btn.fi-size-sm {
+        @apply h-8 gap-1.5 px-3 py-0;
+    }
+
+    .fi-btn.fi-size-lg {
+        @apply h-10 gap-2 px-6 py-0;
+    }
+
+    .fi-btn.fi-size-xl {
+        @apply h-11 gap-2 px-8 py-0;
+    }
+
+    /* Tabs: a muted track with a raised active tab */
+
+    .fi-tabs:not(.fi-contained) {
+        @apply bg-gray-100 p-1 shadow-none ring-0 dark:bg-gray-800;
+    }
+
+    .fi-tabs-item.fi-active {
+        @apply bg-white shadow-sm dark:bg-gray-900 dark:shadow-none;
+    }
+
+    .fi-tabs-item.fi-active .fi-tabs-item-label,
+    .fi-tabs-item.fi-active > .fi-icon {
+        @apply text-gray-950 dark:text-gray-100;
+    }
+
+    .fi-tabs-item:not(.fi-active):hover .fi-tabs-item-label {
+        @apply text-gray-900 dark:text-gray-100;
+    }
+
+    /* User menu */
+
+    .fi-user-menu-trigger {
+        @apply flex w-full items-center gap-3 rounded-lg px-3 py-2 text-start text-sm transition-colors;
+    }
+
+    .fi-user-menu-trigger:hover,
+    .fi-user-menu-trigger.farcaster-user-menu-trigger-active {
+        @apply bg-gray-100 dark:bg-gray-800;
+    }
+
+    .fi-user-menu-trigger-text {
+        @apply flex-1 truncate font-medium text-gray-950 dark:text-gray-50;
+    }
+
+    .farcaster-user-menu-trigger-icon {
+        @apply size-4 text-gray-500 dark:text-gray-400;
+    }
+
+    .farcaster-user-menu-header {
+        @apply flex items-center gap-3 p-3;
+    }
+
+    .farcaster-user-menu-header-meta {
+        @apply min-w-0 flex-1;
+    }
+
+    .farcaster-user-menu-header-name {
+        @apply truncate text-sm font-semibold text-gray-950 dark:text-gray-50;
+    }
+
+    .farcaster-user-menu-header-email {
+        @apply truncate text-xs text-gray-500 dark:text-gray-400;
+    }
+
+    .farcaster-user-menu-section-label {
+        @apply px-3 pt-2 pb-1 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400;
+    }
+}
+
+@layer utilities {
+    .fi-body {
+        --farcaster-layer-order: ok;
+    }
+}
