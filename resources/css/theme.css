@@ -265,6 +265,143 @@
     .polder-theme-user-menu-section-label {
         @apply px-3 pt-2 pb-1 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400;
     }
+
+    /* Mobile navigation */
+
+    .polder-theme-mobile-navigation {
+        --polder-theme-mobile-navigation-height: 4rem;
+        @apply lg:hidden;
+    }
+
+    .fi-body:has(.polder-theme-mobile-navigation) .fi-main {
+        @variant max-lg {
+            padding-bottom: calc(var(--polder-theme-mobile-navigation-height) + 2.5rem + env(safe-area-inset-bottom));
+        }
+    }
+
+    .polder-theme-mobile-navigation-bar {
+        @apply fixed z-30 flex items-center justify-around px-2;
+        height: var(--polder-theme-mobile-navigation-height);
+        background-color: var(--polder-theme-surface);
+    }
+
+    .polder-theme-mobile-navigation-floating .polder-theme-mobile-navigation-bar {
+        @apply inset-x-3 rounded-full ring-1;
+        --tw-ring-color: var(--polder-theme-surface-ring);
+        bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        filter: drop-shadow(0 8px 16px rgb(0 0 0 / 0.12)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.08));
+    }
+
+    .dark .polder-theme-mobile-navigation-floating .polder-theme-mobile-navigation-bar {
+        background-color: var(--polder-theme-raised);
+        --tw-ring-color: var(--polder-theme-raised-ring);
+        filter: drop-shadow(0 8px 18px rgb(0 0 0 / 0.5));
+    }
+
+    .polder-theme-mobile-navigation-docked .polder-theme-mobile-navigation-bar {
+        @apply inset-x-0 bottom-0 border-t;
+        border-color: var(--polder-theme-rule);
+        height: calc(var(--polder-theme-mobile-navigation-height) + env(safe-area-inset-bottom));
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .polder-theme-mobile-navigation-item,
+    .polder-theme-mobile-navigation-center-flat {
+        @apply flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-medium text-gray-500 dark:text-gray-400;
+    }
+
+    .polder-theme-mobile-navigation-item.polder-theme-active {
+        @apply text-primary-600 dark:text-primary-400;
+    }
+
+    .polder-theme-mobile-navigation-label {
+        @apply max-w-full truncate;
+    }
+
+    .polder-theme-mobile-navigation-icon {
+        @apply flex size-6 items-center justify-center;
+
+        & svg,
+        & .fi-avatar {
+            @apply size-6;
+        }
+    }
+
+    .polder-theme-mobile-navigation-center-raised {
+        @apply -mt-8 flex size-14 shrink-0 items-center justify-center rounded-full bg-primary-600 text-white ring-4 dark:bg-primary-500;
+        --tw-ring-color: var(--polder-theme-surface);
+    }
+
+    .polder-theme-mobile-navigation-center-flat .polder-theme-mobile-navigation-icon {
+        @apply size-9 rounded-xl bg-primary-600 text-white dark:bg-primary-500;
+
+        & svg {
+            @apply size-5;
+        }
+    }
+
+    .polder-theme-mobile-navigation-sheet {
+        @apply fixed inset-0 z-40 lg:hidden;
+    }
+
+    .polder-theme-mobile-navigation-sheet-backdrop {
+        @apply absolute inset-0 bg-gray-950/50;
+    }
+
+    .polder-theme-mobile-navigation-sheet-panel {
+        @apply absolute inset-x-0 bottom-0 max-h-[85svh] overflow-y-auto rounded-t-2xl px-3 pt-3 transition-transform duration-200;
+        background-color: var(--polder-theme-surface);
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+
+    .dark .polder-theme-mobile-navigation-sheet-panel {
+        background-color: var(--polder-theme-raised);
+    }
+
+    .polder-theme-mobile-navigation-sheet-panel-hidden {
+        @apply translate-y-full;
+    }
+
+    .polder-theme-mobile-navigation-sheet-handle {
+        @apply mx-auto mb-3 h-1.5 w-10 rounded-full bg-gray-300 dark:bg-gray-600;
+    }
+
+    .polder-theme-mobile-navigation-sheet-panel .fi-dropdown-list + .fi-dropdown-list {
+        @apply border-t;
+        border-color: var(--polder-theme-rule);
+    }
+
+    .polder-theme-mobile-navigation-sheet-user {
+        @apply flex items-center gap-3 px-3 pb-3;
+    }
+
+    .polder-theme-mobile-navigation-sheet-user-meta {
+        @apply min-w-0 flex-1;
+    }
+
+    .polder-theme-mobile-navigation-sheet-user-name {
+        @apply truncate text-sm font-semibold text-gray-950 dark:text-white;
+    }
+
+    .polder-theme-mobile-navigation-sheet-user-email {
+        @apply truncate text-xs text-gray-500 dark:text-gray-400;
+    }
+
+    .polder-theme-mobile-navigation-sheet-group + .polder-theme-mobile-navigation-sheet-group {
+        @apply mt-3;
+    }
+
+    .polder-theme-mobile-navigation-sheet-grid {
+        @apply grid grid-cols-3 gap-2;
+    }
+
+    .polder-theme-mobile-navigation-tile {
+        @apply flex flex-col items-center justify-center gap-1.5 rounded-xl bg-gray-50 px-2 py-3 text-center text-xs font-medium text-gray-700 dark:bg-white/5 dark:text-gray-200;
+    }
+
+    .polder-theme-mobile-navigation-tile.polder-theme-active {
+        @apply bg-primary-50 text-primary-700 dark:bg-primary-500/15 dark:text-primary-300;
+    }
 }
 
 @layer utilities {

@@ -6,50 +6,76 @@ namespace VTech9NL\PolderTheme\MobileNavigation;
 
 use Closure;
 use Filament\Actions\Action;
-use Filament\Support\Concerns\EvaluatesClosures;
+use VTech9NL\PolderTheme\MobileNavigation\Concerns\EvaluatesWithPageContext;
 
 class MobileNavigation
 {
-    use EvaluatesClosures;
+    use EvaluatesWithPageContext;
+
+    protected MobileNavigationStyle $style = MobileNavigationStyle::Floating;
+
+    /**
+     * @var array<MobileNavigationItem> | Closure
+     */
+    protected array|Closure $items = [];
 
     protected Action|Closure|null $centerAction = null;
 
-    /**
-     * @var array<string, mixed>
-     */
-    protected array $pageContext = [];
+    protected MobileNavigationButton $centerButton = MobileNavigationButton::Raised;
 
     public static function make(): static
     {
         return app(static::class);
     }
 
-    public function centerAction(Action|Closure|null $action): static
+    public function style(MobileNavigationStyle $style): static
     {
-        $this->centerAction = $action;
+        $this->style = $style;
 
         return $this;
     }
 
     /**
-     * @param  array<string, mixed>  $pageContext
+     * @param  array<MobileNavigationItem> | Closure  $items
      */
-    public function getCenterAction(array $pageContext = []): ?Action
+    public function items(array|Closure $items): static
     {
-        $this->pageContext = $pageContext;
+        $this->items = $items;
 
-        return $this->evaluate($this->centerAction);
+        return $this;
+    }
+
+    public function centerAction(Action|Closure|null $action, MobileNavigationButton $button = MobileNavigationButton::Raised): static
+    {
+        $this->centerAction = $action;
+        $this->centerButton = $button;
+
+        return $this;
+    }
+
+    public function getStyle(): MobileNavigationStyle
+    {
+        return $this->style;
     }
 
     /**
-     * @return array<mixed>
+     * @return array<MobileNavigationItem>
      */
-    protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
+    public function getItems(): array
     {
-        return match ($parameterName) {
-            'routeName' => [$this->pageContext['routeName'] ?? null],
-            'routeParameters' => [$this->pageContext['routeParameters'] ?? []],
-            default => [],
-        };
+        return array_map(
+            fn (MobileNavigationItem $item): MobileNavigationItem => $item->pageContext($this->pageContext),
+            array_values($this->evaluate($this->items)),
+        );
+    }
+
+    public function getCenterAction(): ?Action
+    {
+        return $this->evaluate($this->centerAction);
+    }
+
+    public function getCenterButton(): MobileNavigationButton
+    {
+        return $this->centerButton;
     }
 }
