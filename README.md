@@ -1,0 +1,132 @@
+# Farcaster for Filament
+
+Farcaster is a theme for [Filament](https://filamentphp.com) v5 panels. It gives the panel an inset layout: the page content floats as a card on a quiet frame, next to a sidebar that holds the user menu. A breadcrumb bar with a sidebar toggle sits at the top of each page.
+
+- Light and dark mode, designed for each mode.
+- Your panel colours: Farcaster uses the `gray` and `primary` palettes that you register on the panel.
+- An optional compact density, which you turn on in PHP for each panel.
+- All rules are in their own CSS layer, so your own CSS overrides them without `!important`.
+
+## Requirements
+
+- PHP 8.2 or higher
+- Filament 5
+- A [custom Filament theme](https://filamentphp.com/docs/5.x/styling/overview#creating-a-custom-theme) for the panel (Tailwind CSS v4)
+
+## Installation
+
+1. Install the package:
+
+    ```bash
+    composer require vtech9nl/filament-farcaster-theme
+    ```
+
+2. Register the plugin on the panel:
+
+    ```php
+    use VTech9NL\FarcasterTheme\FarcasterThemePlugin;
+
+    $panel->plugin(FarcasterThemePlugin::make());
+    ```
+
+3. Add the imports to the panel's theme file, for example `resources/css/filament/admin/theme.css`. Keep this order: `layers.css` must come before Filament's CSS.
+
+    ```css
+    @import '../../../../vendor/vtech9nl/filament-farcaster-theme/resources/css/layers.css';
+    @import '../../../../vendor/filament/filament/resources/css/theme.css';
+    @import '../../../../vendor/vtech9nl/filament-farcaster-theme/resources/css/theme.css';
+
+    @source '../../../../app/Filament/**/*';
+    @source '../../../../resources/views/filament/**/*';
+    ```
+
+4. Build the assets:
+
+    ```bash
+    npm run build
+    ```
+
+To check the import order, run this in the browser console. It must return `ok`:
+
+```js
+getComputedStyle(document.body).getPropertyValue('--farcaster-layer-order')
+```
+
+## Configuration
+
+```php
+FarcasterThemePlugin::make()
+    ->compact()              // denser spacing on this panel
+    ->font('Inter')          // default: Instrument Sans; null keeps the panel's font
+    ->topbar()               // keep Filament's topbar; default: hidden
+```
+
+### Compact density
+
+`->compact()` makes the panel denser. Form fields and buttons keep their full size, so they stay easy to click. You can set compact on one panel and not on another.
+
+### Tenant switcher
+
+When a panel has tenancy and you turn off Filament's tenant menu with `->tenantMenu(false)`, Farcaster shows the user's other tenants in the user menu. To change the section label, publish the translations:
+
+```bash
+php artisan vendor:publish --tag=farcaster-translations
+```
+
+### Breadcrumb bar
+
+The breadcrumb bar has a slot on its right side. To put content there, for example the global search, register a render hook:
+
+```php
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Blade;
+use VTech9NL\FarcasterTheme\FarcasterRenderHook;
+
+FilamentView::registerRenderHook(
+    FarcasterRenderHook::BREADCRUMB_BAR_END,
+    fn (): string => Blade::render('@livewire(\Filament\Livewire\GlobalSearch::class)'),
+);
+```
+
+## Customisation
+
+Farcaster reads these CSS custom properties. Set them after the imports in your theme file. Set the size tokens on `:root` and the colour tokens on `.fi-body`. Use `.dark .fi-body` for dark mode only.
+
+| Token | Default | Controls |
+| --- | --- | --- |
+| `--farcaster-spacing` | `0.25rem` | Spacing scale of the panel |
+| `--farcaster-spacing-compact` | `0.2rem` | Spacing scale when `->compact()` is on |
+| `--farcaster-control-spacing` | `0.25rem` | Spacing scale of fields, buttons and the breadcrumb bar |
+| `--farcaster-radius-md` | `0.25rem` | Small corners: fields, buttons |
+| `--farcaster-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
+| `--farcaster-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
+| `--farcaster-inset` | `0.5rem` | Space around the content card |
+| `--farcaster-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
+| `--farcaster-surface` | `white` / `gray-950` | Content card background |
+| `--farcaster-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
+| `--farcaster-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
+
+```css
+:root {
+    --farcaster-radius-xl: 0.75rem;
+}
+
+.dark .fi-body {
+    --farcaster-ground: var(--gray-950);
+}
+```
+
+## Blade views
+
+Farcaster replaces two Filament views to make its layout: `components/header/index` (the breadcrumb bar) and `components/user-menu`. Each one starts from the Filament v5 view and adds only the theme's changes. CI runs every week against the latest Filament 5 release to find changes in those views early.
+
+## Testing
+
+```bash
+composer test
+composer analyse
+```
+
+## License
+
+MIT. See [LICENSE.md](LICENSE.md).
