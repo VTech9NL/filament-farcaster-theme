@@ -9,7 +9,14 @@ it('hides the topbar and moves the user menu into the sidebar', function () {
 
     expect($panel->hasTopbar())->toBeFalse()
         ->and($panel->getUserMenuPosition())->toBe(UserMenuPosition::Sidebar)
-        ->and($panel->getFontFamily())->toBe('Instrument Sans');
+        ->and($panel->getFontFamily())->toBe('Instrument Sans')
+        ->and($panel->getSidebarWidth())->toBe('16rem');
+});
+
+it('lets the panel keep its own sidebar width', function () {
+    $panel = Panel::make()->id('test')->sidebarWidth('22rem')->plugin(PolderThemePlugin::make()->sidebarWidth(null));
+
+    expect($panel->getSidebarWidth())->toBe('22rem');
 });
 
 it('keeps the topbar and its user menu when asked', function () {

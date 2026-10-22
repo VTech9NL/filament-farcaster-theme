@@ -16,6 +16,8 @@ class PolderThemePlugin implements Plugin
 
     protected bool $hasTopbar = false;
 
+    protected ?string $sidebarWidth = '16rem';
+
     protected bool $isCompact = false;
 
     public static function make(): static
@@ -37,6 +39,13 @@ class PolderThemePlugin implements Plugin
     public function font(?string $family): static
     {
         $this->font = $family;
+
+        return $this;
+    }
+
+    public function sidebarWidth(?string $width): static
+    {
+        $this->sidebarWidth = $width;
 
         return $this;
     }
@@ -64,6 +73,10 @@ class PolderThemePlugin implements Plugin
     {
         if (filled($this->font)) {
             $panel->font($this->font);
+        }
+
+        if (filled($this->sidebarWidth)) {
+            $panel->sidebarWidth($this->sidebarWidth);
         }
 
         $panel
