@@ -7,11 +7,14 @@ namespace VTech9NL\PolderTheme\Livewire;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Facades\Filament;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use VTech9NL\PolderTheme\MobileNavigation\MobileNavigation;
 use VTech9NL\PolderTheme\PolderThemePlugin;
@@ -23,28 +26,30 @@ class MobileNavigationBar extends Component implements HasActions, HasSchemas
 
     public const CENTER_ACTION = 'polderCenter';
 
+    #[Locked]
     public ?string $panelId = null;
 
+    #[Locked]
     public int|string|null $tenantKey = null;
 
+    #[Locked]
     public ?string $routeName = null;
 
     /**
      * @var array<string, scalar>
      */
+    #[Locked]
     public array $routeParameters = [];
 
-    public function mount(): void
+    /**
+     * @param  array<string, scalar>  $routeParameters
+     */
+    public function mount(?string $routeName = null, array $routeParameters = []): void
     {
-        $route = request()->route();
-
         $this->panelId = Filament::getCurrentPanel()?->getId();
         $this->tenantKey = Filament::getTenant()?->getKey();
-        $this->routeName = $route?->getName();
-        $this->routeParameters = collect($route?->parameters() ?? [])
-            ->map(fn (mixed $parameter): mixed => $parameter instanceof Model ? $parameter->getKey() : $parameter)
-            ->filter(fn (mixed $parameter): bool => is_scalar($parameter))
-            ->all();
+        $this->routeName = $routeName;
+        $this->routeParameters = $routeParameters;
     }
 
     /**
@@ -56,8 +61,13 @@ class MobileNavigationBar extends Component implements HasActions, HasSchemas
             Filament::setCurrentPanel($this->panelId);
         }
 
+        $user = Filament::auth()->user();
+        $panel = Filament::getCurrentPanel();
+
+        abort_unless($user && $panel && ((! $user instanceof FilamentUser) || $user->canAccessPanel($panel)), 403);
+
         if (filled($this->tenantKey) && (! Filament::getTenant())) {
-            $this->bindTenant();
+            $this->bindTenant($user);
         }
 
         $centerAction = $this->getMobileNavigation()?->getCenterAction([
@@ -70,16 +80,15 @@ class MobileNavigationBar extends Component implements HasActions, HasSchemas
         }
     }
 
-    protected function bindTenant(): void
+    protected function bindTenant(Authenticatable $user): void
     {
         /** @var class-string<Model>|null $tenantModel */
         $tenantModel = Filament::getCurrentPanel()?->getTenantModel();
         $tenant = $tenantModel ? $tenantModel::query()->find($this->tenantKey) : null;
-        $user = Filament::auth()->user();
 
-        if ($tenant && ($user instanceof HasTenants) && $user->canAccessTenant($tenant)) {
-            Filament::setTenant($tenant, isQuiet: true);
-        }
+        abort_unless($tenant && ($user instanceof HasTenants) && $user->canAccessTenant($tenant), 403);
+
+        Filament::setTenant($tenant, isQuiet: true);
     }
 
     protected function getMobileNavigation(): ?MobileNavigation

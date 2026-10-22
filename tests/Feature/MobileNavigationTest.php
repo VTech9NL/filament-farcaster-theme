@@ -2,6 +2,7 @@
 
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
+use Livewire\Features\SupportLockedProperties\CannotUpdateLockedPropertyException;
 use VTech9NL\PolderTheme\Livewire\MobileNavigationBar;
 use VTech9NL\PolderTheme\MobileNavigation\MobileNavigation;
 use VTech9NL\PolderTheme\PolderThemePlugin;
@@ -45,9 +46,10 @@ it('runs the app centre action with the panel, tenant and page it was mounted on
     Filament::setCurrentPanel('app');
     Filament::setTenant($this->team, isQuiet: true);
 
-    $bar = livewire(MobileNavigationBar::class)
-        ->set('routeName', 'filament.app.pages.dashboard')
-        ->set('routeParameters', ['tenant' => $this->team->getKey()]);
+    $bar = livewire(MobileNavigationBar::class, [
+        'routeName' => 'filament.app.pages.dashboard',
+        'routeParameters' => ['tenant' => (string) $this->team->getKey()],
+    ]);
 
     Filament::setCurrentPanel('compact');
     Filament::setTenant(null, isQuiet: true);
@@ -58,8 +60,39 @@ it('runs the app centre action with the panel, tenant and page it was mounted on
         'panel' => 'app',
         'tenant' => $this->team->getKey(),
         'routeName' => 'filament.app.pages.dashboard',
-        'routeParameters' => ['tenant' => $this->team->getKey()],
+        'routeParameters' => ['tenant' => (string) $this->team->getKey()],
     ]);
+});
+
+it('does not let the browser change the panel, tenant or page it was mounted on', function () {
+    Filament::setCurrentPanel('app');
+    Filament::setTenant($this->team, isQuiet: true);
+
+    livewire(MobileNavigationBar::class)->set('tenantKey', 999);
+})->throws(CannotUpdateLockedPropertyException::class);
+
+it('refuses a tenant the user does not belong to', function () {
+    Filament::setCurrentPanel('app');
+    Filament::setTenant(Team::query()->create(['name' => 'Difference Engine']), isQuiet: true);
+
+    $bar = livewire(MobileNavigationBar::class);
+    Filament::setTenant(null, isQuiet: true);
+
+    $bar->call('mountAction', MobileNavigationBar::CENTER_ACTION)->assertForbidden();
+
+    expect($this->ran)->toBeNull();
+});
+
+it('refuses a signed-out request', function () {
+    Filament::setCurrentPanel('app');
+    Filament::setTenant($this->team, isQuiet: true);
+
+    $bar = livewire(MobileNavigationBar::class);
+    auth()->logout();
+
+    $bar->call('mountAction', MobileNavigationBar::CENTER_ACTION)->assertForbidden();
+
+    expect($this->ran)->toBeNull();
 });
 
 it('renders no bar on a panel without mobile navigation', function () {
