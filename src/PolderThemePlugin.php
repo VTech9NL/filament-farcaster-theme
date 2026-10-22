@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace VTech9NL\PolderTheme;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Enums\UserMenuPosition;
 use Filament\Panel;
+use VTech9NL\PolderTheme\MobileNavigation\MobileNavigation;
 
 class PolderThemePlugin implements Plugin
 {
@@ -19,6 +21,8 @@ class PolderThemePlugin implements Plugin
     protected ?string $sidebarWidth = '16rem';
 
     protected bool $isCompact = false;
+
+    protected MobileNavigation|Closure|null $mobileNavigation = null;
 
     public static function make(): static
     {
@@ -62,6 +66,20 @@ class PolderThemePlugin implements Plugin
         $this->isCompact = $condition;
 
         return $this;
+    }
+
+    public function mobileNavigation(MobileNavigation|Closure|null $navigation): static
+    {
+        $this->mobileNavigation = $navigation;
+
+        return $this;
+    }
+
+    public function getMobileNavigation(): ?MobileNavigation
+    {
+        return $this->mobileNavigation instanceof Closure
+            ? ($this->mobileNavigation)()
+            : $this->mobileNavigation;
     }
 
     public function isCompact(): bool

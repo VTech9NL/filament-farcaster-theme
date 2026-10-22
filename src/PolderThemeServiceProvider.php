@@ -7,8 +7,11 @@ namespace VTech9NL\PolderTheme;
 use Filament\Facades\Filament;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use VTech9NL\PolderTheme\Livewire\MobileNavigationBar;
 
 class PolderThemeServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,9 @@ class PolderThemeServiceProvider extends ServiceProvider
         ], 'polder-translations');
 
         View::prependNamespace('filament-panels', __DIR__.'/../resources/views');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'polder-theme');
+
+        Livewire::component('polder-theme.mobile-navigation-bar', MobileNavigationBar::class);
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_START,
@@ -35,6 +41,13 @@ class PolderThemeServiceProvider extends ServiceProvider
             PanelsRenderHook::HEAD_END,
             fn (): string => $this->getPlugin()?->isCompact()
                 ? '<style>:root{--polder-theme-spacing:var(--polder-theme-spacing-compact)}</style>'
+                : '',
+        );
+
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::BODY_END,
+            fn (): string => $this->getPlugin()?->getMobileNavigation()
+                ? Blade::render("@livewire('polder-theme.mobile-navigation-bar')")
                 : '',
         );
     }
