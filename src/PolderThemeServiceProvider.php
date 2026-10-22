@@ -7,8 +7,12 @@ namespace VTech9NL\PolderTheme;
 use Filament\Facades\Filament;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use VTech9NL\PolderTheme\Livewire\MobileNavigationBar;
 
 class PolderThemeServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,9 @@ class PolderThemeServiceProvider extends ServiceProvider
         ], 'polder-translations');
 
         View::prependNamespace('filament-panels', __DIR__.'/../resources/views');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'polder-theme');
+
+        Livewire::component('polder-theme.mobile-navigation-bar', MobileNavigationBar::class);
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_START,
@@ -37,6 +44,32 @@ class PolderThemeServiceProvider extends ServiceProvider
                 ? '<style>:root{--polder-theme-spacing:var(--polder-theme-spacing-compact)}</style>'
                 : '',
         );
+
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::BODY_END,
+            fn (): string => (Filament::auth()->check() && $this->getPlugin()?->getMobileNavigation())
+                ? Blade::render(
+                    "@livewire('polder-theme.mobile-navigation-bar', ['routeName' => \$routeName, 'routeParameters' => \$routeParameters])",
+                    $this->getPageRoute(),
+                )
+                : '',
+        );
+    }
+
+    /**
+     * @return array{routeName: ?string, routeParameters: array<string, scalar>}
+     */
+    protected function getPageRoute(): array
+    {
+        $route = request()->route();
+
+        return [
+            'routeName' => $route?->getName(),
+            'routeParameters' => collect($route?->parameters() ?? [])
+                ->map(fn (mixed $parameter): mixed => $parameter instanceof Model ? $parameter->getKey() : $parameter)
+                ->filter(fn (mixed $parameter): bool => is_scalar($parameter))
+                ->all(),
+        ];
     }
 
     protected function getPlugin(): ?PolderThemePlugin
