@@ -178,8 +178,7 @@
 
     /* Form controls and buttons keep a full-size hit target in every density */
 
-    .fi-input-wrp,
-    .fi-select-wrp {
+    .fi-input-wrp {
         --spacing: var(--polder-theme-control-spacing);
     }
 
