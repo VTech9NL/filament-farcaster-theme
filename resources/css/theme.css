@@ -108,6 +108,11 @@
         }
     }
 
+    /* The breadcrumb bar's toggle replaces Filament's own, which otherwise adds a second toggle on phones */
+    .fi-layout-sidebar-toggle-btn-ctn {
+        @apply hidden;
+    }
+
     .polder-theme-breadcrumb-bar-end {
         @apply ms-auto flex items-center;
     }

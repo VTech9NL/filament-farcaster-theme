@@ -15,11 +15,11 @@
 @endphp
 
 <div class="polder-theme-breadcrumb-bar">
-    @if (filament()->hasNavigation())
+    @if (filament()->hasNavigation() && (! filament()->hasTopbar()))
         <button
             type="button"
             x-data="{}"
-            x-on:click="$store.sidebar.isOpen ? $store.sidebar.close() : $store.sidebar.open()"
+            x-on:click="$store.sidebar.isOpen ? $store.sidebar.close() : $store.sidebar.open($event.currentTarget)"
             x-bind:aria-label="$store.sidebar.isOpen ? @js(__('filament-panels::layout.actions.sidebar.collapse.label')) : @js(__('filament-panels::layout.actions.sidebar.expand.label'))"
             class="polder-theme-sidebar-toggle"
         >

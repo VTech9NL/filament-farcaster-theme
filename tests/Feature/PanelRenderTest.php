@@ -62,3 +62,11 @@ it('fixes the layer order before any stylesheet can declare it', function () {
     expect($layerOrderPosition)->not->toBeFalse()
         ->and($layerOrderPosition)->toBeLessThan(strpos($html, '<link'));
 });
+
+it('leaves the sidebar toggle to the topbar when the panel keeps it', function () {
+    get('/app/'.$this->team->getKey())->assertSee('polder-theme-sidebar-toggle');
+
+    Filament::getPanel('app')->topbar();
+
+    get('/app/'.$this->team->getKey())->assertDontSee('polder-theme-sidebar-toggle');
+});
