@@ -9,7 +9,7 @@ Farcaster is a theme for [Filament](https://filamentphp.com) v5 panels. It gives
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 8.3 or higher
 - Filament 5
 - A [custom Filament theme](https://filamentphp.com/docs/5.x/styling/overview#creating-a-custom-theme) for the panel (Tailwind CSS v4)
 
