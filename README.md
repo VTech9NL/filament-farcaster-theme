@@ -271,7 +271,7 @@ For example, rounder corners everywhere and lighter containers in dark mode:
 ## How Polder works
 
 - **CSS layers.** All rules sit in `@layer polder-theme`, between Filament's components and Tailwind's utilities. Your own CSS, outside any layer, always wins. The plugin also writes the layer order at the top of the page `<head>`, so a plugin stylesheet that loads before your theme cannot change it.
-- **Two Blade views.** Polder replaces `components/header/index` (the breadcrumb bar) and `components/user-menu`. Each one starts from the Filament 5 view and adds only Polder's changes. CI runs every week against the latest Filament 5 release, to find changes in those views early.
+- **Two Blade views.** Polder replaces `components/header/index` (the breadcrumb bar) and `components/user-menu`, only in panels that register the plugin; other panels keep Filament's own views. Each one starts from the Filament 5 view and adds only Polder's changes. A test fails when Filament changes either original view, and CI runs every week against the latest Filament 5 release.
 - **No extra build step.** Polder's own views use only `polder-theme-*` classes, which the theme CSS styles. You do not need an `@source` line for the package.
 
 ## Testing
