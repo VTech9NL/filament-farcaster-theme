@@ -1,6 +1,7 @@
 <?php
 
 use Filament\Facades\Filament;
+use VTech9NL\PolderTheme\PolderThemeServiceProvider;
 use VTech9NL\PolderTheme\Tests\Fixtures\Team;
 use VTech9NL\PolderTheme\Tests\Fixtures\User;
 
@@ -51,4 +52,13 @@ it('switches density to compact only on a compact panel', function () {
 
     get('/compact')->assertOk()->assertSee($compactDeclaration, escape: false);
     get('/app/'.$this->team->getKey())->assertOk()->assertDontSee($compactDeclaration, escape: false);
+});
+
+it('fixes the layer order before any stylesheet can declare it', function () {
+    $html = get('/app/'.$this->team->getKey())->assertOk()->getContent();
+
+    $layerOrderPosition = strpos($html, '@layer '.PolderThemeServiceProvider::LAYER_ORDER.';');
+
+    expect($layerOrderPosition)->not->toBeFalse()
+        ->and($layerOrderPosition)->toBeLessThan(strpos($html, '<link'));
 });

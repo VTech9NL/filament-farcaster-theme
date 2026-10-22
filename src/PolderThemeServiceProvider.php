@@ -12,6 +12,8 @@ use Illuminate\Support\ServiceProvider;
 
 class PolderThemeServiceProvider extends ServiceProvider
 {
+    public const LAYER_ORDER = 'properties, theme, base, components, polder-theme, utilities';
+
     public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'polder');
@@ -23,24 +25,29 @@ class PolderThemeServiceProvider extends ServiceProvider
         View::prependNamespace('filament-panels', __DIR__.'/../resources/views');
 
         FilamentView::registerRenderHook(
+            PanelsRenderHook::HEAD_START,
+            fn (): string => $this->getPlugin() instanceof PolderThemePlugin
+                ? '<style>@layer '.self::LAYER_ORDER.';</style>'
+                : '',
+        );
+
+        FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_END,
-            fn (): string => $this->isCompactPanel()
+            fn (): string => $this->getPlugin()?->isCompact()
                 ? '<style>:root{--polder-theme-spacing:var(--polder-theme-spacing-compact)}</style>'
                 : '',
         );
     }
 
-    protected function isCompactPanel(): bool
+    protected function getPlugin(): ?PolderThemePlugin
     {
         $panel = Filament::getCurrentPanel();
 
         if (! $panel?->hasPlugin(PolderThemePlugin::ID)) {
-            return false;
+            return null;
         }
 
-        /** @var PolderThemePlugin $plugin */
-        $plugin = $panel->getPlugin(PolderThemePlugin::ID);
-
-        return $plugin->isCompact();
+        /** @var PolderThemePlugin */
+        return $panel->getPlugin(PolderThemePlugin::ID);
     }
 }

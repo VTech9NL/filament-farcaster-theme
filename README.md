@@ -54,6 +54,8 @@ To check the import order, run this in the browser console. It must return `ok`:
 getComputedStyle(document.body).getPropertyValue('--polder-theme-layer-order')
 ```
 
+The plugin also writes the layer order at the top of the page `<head>`. So a Filament plugin stylesheet that loads before your theme, and declares Tailwind's layers, cannot push Polder's rules above Tailwind's utilities.
+
 ## Configuration
 
 ```php
@@ -102,7 +104,7 @@ Polder reads these CSS custom properties. Set them after the imports in your the
 | `--polder-theme-radius-md` | `0.25rem` | Small corners: fields, buttons |
 | `--polder-theme-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
 | `--polder-theme-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
-| `--polder-theme-inset` | `0.5rem` | Space around the content card |
+| `--polder-theme-inset` | `2 × --polder-theme-spacing` | Space around the content card |
 | `--polder-theme-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
 | `--polder-theme-surface` | `white` / `gray-950` | Content card background |
 | `--polder-theme-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
