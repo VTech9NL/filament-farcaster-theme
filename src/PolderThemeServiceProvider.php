@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace VTech9NL\FarcasterTheme;
+namespace VTech9NL\PolderTheme;
 
 use Filament\Facades\Filament;
 use Filament\Support\Facades\FilamentView;
@@ -10,22 +10,22 @@ use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class FarcasterThemeServiceProvider extends ServiceProvider
+class PolderThemeServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'farcaster');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'polder');
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/farcaster'),
-        ], 'farcaster-translations');
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/polder'),
+        ], 'polder-translations');
 
         View::prependNamespace('filament-panels', __DIR__.'/../resources/views');
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_END,
             fn (): string => $this->isCompactPanel()
-                ? '<style>:root{--farcaster-spacing:var(--farcaster-spacing-compact)}</style>'
+                ? '<style>:root{--polder-spacing:var(--polder-spacing-compact)}</style>'
                 : '',
         );
     }
@@ -34,12 +34,12 @@ class FarcasterThemeServiceProvider extends ServiceProvider
     {
         $panel = Filament::getCurrentPanel();
 
-        if (! $panel?->hasPlugin(FarcasterThemePlugin::ID)) {
+        if (! $panel?->hasPlugin(PolderThemePlugin::ID)) {
             return false;
         }
 
-        /** @var FarcasterThemePlugin $plugin */
-        $plugin = $panel->getPlugin(FarcasterThemePlugin::ID);
+        /** @var PolderThemePlugin $plugin */
+        $plugin = $panel->getPlugin(PolderThemePlugin::ID);
 
         return $plugin->isCompact();
     }

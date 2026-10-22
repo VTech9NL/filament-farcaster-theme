@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace VTech9NL\FarcasterTheme\Tests;
+namespace VTech9NL\PolderTheme\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Schema;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use VTech9NL\FarcasterTheme\FarcasterThemeServiceProvider;
-use VTech9NL\FarcasterTheme\Tests\Fixtures\AppPanelProvider;
-use VTech9NL\FarcasterTheme\Tests\Fixtures\CompactPanelProvider;
-use VTech9NL\FarcasterTheme\Tests\Fixtures\User;
+use VTech9NL\PolderTheme\PolderThemeServiceProvider;
+use VTech9NL\PolderTheme\Tests\Fixtures\AppPanelProvider;
+use VTech9NL\PolderTheme\Tests\Fixtures\CompactPanelProvider;
+use VTech9NL\PolderTheme\Tests\Fixtures\User;
 
 class TestCase extends Orchestra
 {
@@ -43,7 +43,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            FarcasterThemeServiceProvider::class,
+            PolderThemeServiceProvider::class,
             AppPanelProvider::class,
             CompactPanelProvider::class,
         ];

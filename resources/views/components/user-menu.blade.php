@@ -68,7 +68,7 @@
             x-data="{ isOpen: false }"
             x-on:click="isOpen = ! isOpen"
             x-on:click.outside="isOpen = false"
-            x-bind:class="{ 'farcaster-user-menu-trigger-active': isOpen }"
+            x-bind:class="{ 'polder-user-menu-trigger-active': isOpen }"
         >
             <x-filament-panels::avatar.user :user="$user" loading="lazy" />
 
@@ -85,7 +85,7 @@
                 {{
                     \Filament\Support\generate_icon_html(Heroicon::ChevronUpDown, alias: PanelsIconAlias::USER_MENU_TOGGLE_BUTTON, attributes: new ComponentAttributeBag([
                         'x-show' => $isSidebarCollapsibleOnDesktop ? '$store.sidebar.isOpen' : null,
-                        'class' => 'farcaster-user-menu-trigger-icon',
+                        'class' => 'polder-user-menu-trigger-icon',
                     ]))
                 }}
             @endif
@@ -94,16 +94,16 @@
 
     {{ FilamentView::renderHook(PanelsRenderHook::USER_MENU_PROFILE_BEFORE) }}
 
-    <div class="farcaster-user-menu-header">
+    <div class="polder-user-menu-header">
         <x-filament-panels::avatar.user :user="$user" loading="lazy" />
 
-        <div class="farcaster-user-menu-header-meta">
-            <div class="farcaster-user-menu-header-name">
+        <div class="polder-user-menu-header-meta">
+            <div class="polder-user-menu-header-name">
                 {{ $userName }}
             </div>
 
             @if (filled($userEmail))
-                <div class="farcaster-user-menu-header-email">
+                <div class="polder-user-menu-header-email">
                     {{ $userEmail }}
                 </div>
             @endif
@@ -144,8 +144,8 @@
 
     @if (filled($switchableTenants))
         <x-filament::dropdown.list>
-            <div class="farcaster-user-menu-section-label">
-                {{ __('farcaster::user-menu.switch_tenant') }}
+            <div class="polder-user-menu-section-label">
+                {{ __('polder::user-menu.switch_tenant') }}
             </div>
 
             <x-filament::dropdown.list.item :icon="Heroicon::Check" disabled>

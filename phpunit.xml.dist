@@ -9,7 +9,7 @@
     failOnRisky="true"
 >
     <testsuites>
-        <testsuite name="Farcaster">
+        <testsuite name="Polder">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace VTech9NL\FarcasterTheme;
+namespace VTech9NL\PolderTheme;
 
 use Filament\Contracts\Plugin;
 use Filament\Enums\UserMenuPosition;
 use Filament\Panel;
 
-class FarcasterThemePlugin implements Plugin
+class PolderThemePlugin implements Plugin
 {
-    public const ID = 'farcaster-theme';
+    public const ID = 'polder-theme';
 
     protected ?string $font = 'Instrument Sans';
 

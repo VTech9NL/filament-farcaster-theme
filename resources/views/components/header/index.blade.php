@@ -9,19 +9,19 @@
 @php
     use Filament\Support\Facades\FilamentView;
     use Filament\View\PanelsRenderHook;
-    use VTech9NL\FarcasterTheme\FarcasterRenderHook;
+    use VTech9NL\PolderTheme\PolderRenderHook;
 
     use function Filament\Support\is_slot_empty;
 @endphp
 
-<div class="farcaster-breadcrumb-bar">
+<div class="polder-breadcrumb-bar">
     @if (filament()->hasNavigation())
         <button
             type="button"
             x-data="{}"
             x-on:click="$store.sidebar.isOpen ? $store.sidebar.close() : $store.sidebar.open()"
             x-bind:aria-label="$store.sidebar.isOpen ? @js(__('filament-panels::layout.actions.sidebar.collapse.label')) : @js(__('filament-panels::layout.actions.sidebar.expand.label'))"
-            class="farcaster-sidebar-toggle"
+            class="polder-sidebar-toggle"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M9 3v18" /></svg>
         </button>
@@ -31,8 +31,8 @@
         <x-filament::breadcrumbs :breadcrumbs="$breadcrumbs" />
     @endif
 
-    <div class="farcaster-breadcrumb-bar-end">
-        {{ FilamentView::renderHook(FarcasterRenderHook::BREADCRUMB_BAR_END, scopes: $this->getRenderHookScopes()) }}
+    <div class="polder-breadcrumb-bar-end">
+        {{ FilamentView::renderHook(PolderRenderHook::BREADCRUMB_BAR_END, scopes: $this->getRenderHookScopes()) }}
     </div>
 </div>
 

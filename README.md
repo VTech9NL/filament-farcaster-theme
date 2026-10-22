@@ -1,9 +1,11 @@
-# Farcaster for Filament
+# Polder for Filament
 
-Farcaster is a theme for [Filament](https://filamentphp.com) v5 panels. It gives the panel an inset layout: the page content floats as a card on a quiet frame, next to a sidebar that holds the user menu. A breadcrumb bar with a sidebar toggle sits at the top of each page.
+*Polder (Dutch): flat, calm land in an ordered grid of fields and water.*
+
+Polder is a theme for [Filament](https://filamentphp.com) v5 panels. It gives the panel an inset layout: the page content floats as a card on a quiet frame, next to a sidebar that holds the user menu. A breadcrumb bar with a sidebar toggle sits at the top of each page.
 
 - Light and dark mode, designed for each mode.
-- Your panel colours: Farcaster uses the `gray` and `primary` palettes that you register on the panel.
+- Your panel colours: Polder uses the `gray` and `primary` palettes that you register on the panel.
 - An optional compact density, which you turn on in PHP for each panel.
 - All rules are in their own CSS layer, so your own CSS overrides them without `!important`.
 
@@ -18,23 +20,23 @@ Farcaster is a theme for [Filament](https://filamentphp.com) v5 panels. It gives
 1. Install the package:
 
     ```bash
-    composer require vtech9nl/filament-farcaster-theme
+    composer require vtech9nl/filament-polder-theme
     ```
 
 2. Register the plugin on the panel:
 
     ```php
-    use VTech9NL\FarcasterTheme\FarcasterThemePlugin;
+    use VTech9NL\PolderTheme\PolderThemePlugin;
 
-    $panel->plugin(FarcasterThemePlugin::make());
+    $panel->plugin(PolderThemePlugin::make());
     ```
 
 3. Add the imports to the panel's theme file, for example `resources/css/filament/admin/theme.css`. Keep this order: `layers.css` must come before Filament's CSS.
 
     ```css
-    @import '../../../../vendor/vtech9nl/filament-farcaster-theme/resources/css/layers.css';
+    @import '../../../../vendor/vtech9nl/filament-polder-theme/resources/css/layers.css';
     @import '../../../../vendor/filament/filament/resources/css/theme.css';
-    @import '../../../../vendor/vtech9nl/filament-farcaster-theme/resources/css/theme.css';
+    @import '../../../../vendor/vtech9nl/filament-polder-theme/resources/css/theme.css';
 
     @source '../../../../app/Filament/**/*';
     @source '../../../../resources/views/filament/**/*';
@@ -49,13 +51,13 @@ Farcaster is a theme for [Filament](https://filamentphp.com) v5 panels. It gives
 To check the import order, run this in the browser console. It must return `ok`:
 
 ```js
-getComputedStyle(document.body).getPropertyValue('--farcaster-layer-order')
+getComputedStyle(document.body).getPropertyValue('--polder-layer-order')
 ```
 
 ## Configuration
 
 ```php
-FarcasterThemePlugin::make()
+PolderThemePlugin::make()
     ->compact()              // denser spacing on this panel
     ->font('Inter')          // default: Instrument Sans; null keeps the panel's font
     ->topbar()               // keep Filament's topbar; default: hidden
@@ -67,10 +69,10 @@ FarcasterThemePlugin::make()
 
 ### Tenant switcher
 
-When a panel has tenancy and you turn off Filament's tenant menu with `->tenantMenu(false)`, Farcaster shows the user's other tenants in the user menu. To change the section label, publish the translations:
+When a panel has tenancy and you turn off Filament's tenant menu with `->tenantMenu(false)`, Polder shows the user's other tenants in the user menu. To change the section label, publish the translations:
 
 ```bash
-php artisan vendor:publish --tag=farcaster-translations
+php artisan vendor:publish --tag=polder-translations
 ```
 
 ### Breadcrumb bar
@@ -80,45 +82,45 @@ The breadcrumb bar has a slot on its right side. To put content there, for examp
 ```php
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Support\Facades\Blade;
-use VTech9NL\FarcasterTheme\FarcasterRenderHook;
+use VTech9NL\PolderTheme\PolderRenderHook;
 
 FilamentView::registerRenderHook(
-    FarcasterRenderHook::BREADCRUMB_BAR_END,
+    PolderRenderHook::BREADCRUMB_BAR_END,
     fn (): string => Blade::render('@livewire(\Filament\Livewire\GlobalSearch::class)'),
 );
 ```
 
 ## Customisation
 
-Farcaster reads these CSS custom properties. Set them after the imports in your theme file. Set the size tokens on `:root` and the colour tokens on `.fi-body`. Use `.dark .fi-body` for dark mode only.
+Polder reads these CSS custom properties. Set them after the imports in your theme file. Set the size tokens on `:root` and the colour tokens on `.fi-body`. Use `.dark .fi-body` for dark mode only.
 
 | Token | Default | Controls |
 | --- | --- | --- |
-| `--farcaster-spacing` | `0.25rem` | Spacing scale of the panel |
-| `--farcaster-spacing-compact` | `0.2rem` | Spacing scale when `->compact()` is on |
-| `--farcaster-control-spacing` | `0.25rem` | Spacing scale of fields, buttons and the breadcrumb bar |
-| `--farcaster-radius-md` | `0.25rem` | Small corners: fields, buttons |
-| `--farcaster-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
-| `--farcaster-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
-| `--farcaster-inset` | `0.5rem` | Space around the content card |
-| `--farcaster-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
-| `--farcaster-surface` | `white` / `gray-950` | Content card background |
-| `--farcaster-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
-| `--farcaster-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
+| `--polder-spacing` | `0.25rem` | Spacing scale of the panel |
+| `--polder-spacing-compact` | `0.2rem` | Spacing scale when `->compact()` is on |
+| `--polder-control-spacing` | `0.25rem` | Spacing scale of fields, buttons and the breadcrumb bar |
+| `--polder-radius-md` | `0.25rem` | Small corners: fields, buttons |
+| `--polder-radius-lg` | `0.3rem` | Medium corners: dropdowns, navigation items |
+| `--polder-radius-xl` | `0.35rem` | Large corners: sections, tables, the content card |
+| `--polder-inset` | `0.5rem` | Space around the content card |
+| `--polder-ground` | `gray-50` / `gray-900` | Frame and sidebar background |
+| `--polder-surface` | `white` / `gray-950` | Content card background |
+| `--polder-surface-ring` | `gray-950` 5% / `white` 10% | Content card outline |
+| `--polder-rule` | `gray-200` 50% / `gray-700` 50% | Breadcrumb bar divider |
 
 ```css
 :root {
-    --farcaster-radius-xl: 0.75rem;
+    --polder-radius-xl: 0.75rem;
 }
 
 .dark .fi-body {
-    --farcaster-ground: var(--gray-950);
+    --polder-ground: var(--gray-950);
 }
 ```
 
 ## Blade views
 
-Farcaster replaces two Filament views to make its layout: `components/header/index` (the breadcrumb bar) and `components/user-menu`. Each one starts from the Filament v5 view and adds only the theme's changes. CI runs every week against the latest Filament 5 release to find changes in those views early.
+Polder replaces two Filament views to make its layout: `components/header/index` (the breadcrumb bar) and `components/user-menu`. Each one starts from the Filament v5 view and adds only the theme's changes. CI runs every week against the latest Filament 5 release to find changes in those views early.
 
 ## Testing
 

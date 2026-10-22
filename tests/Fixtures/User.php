@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace VTech9NL\FarcasterTheme\Tests\Fixtures;
+namespace VTech9NL\PolderTheme\Tests\Fixtures;
 
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;

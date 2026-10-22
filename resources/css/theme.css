@@ -1,33 +1,33 @@
-@layer farcaster {
+@layer polder {
     :root {
-        --farcaster-spacing: 0.25rem;
-        --farcaster-spacing-compact: 0.2rem;
-        --farcaster-control-spacing: 0.25rem;
-        --farcaster-radius-md: 0.25rem;
-        --farcaster-radius-lg: 0.3rem;
-        --farcaster-radius-xl: 0.35rem;
-        --farcaster-inset: 0.5rem;
+        --polder-spacing: 0.25rem;
+        --polder-spacing-compact: 0.2rem;
+        --polder-control-spacing: 0.25rem;
+        --polder-radius-md: 0.25rem;
+        --polder-radius-lg: 0.3rem;
+        --polder-radius-xl: 0.35rem;
+        --polder-inset: 0.5rem;
     }
 
     .fi-body {
-        --spacing: var(--farcaster-spacing);
-        --radius-md: var(--farcaster-radius-md);
-        --radius-lg: var(--farcaster-radius-lg);
-        --radius-xl: var(--farcaster-radius-xl);
-        --farcaster-ground: var(--gray-50);
-        --farcaster-surface: var(--color-white);
-        --farcaster-surface-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
-        --farcaster-rule: color-mix(in oklab, var(--gray-200) 50%, transparent);
-        --farcaster-layer-order: misordered;
+        --spacing: var(--polder-spacing);
+        --radius-md: var(--polder-radius-md);
+        --radius-lg: var(--polder-radius-lg);
+        --radius-xl: var(--polder-radius-xl);
+        --polder-ground: var(--gray-50);
+        --polder-surface: var(--color-white);
+        --polder-surface-ring: color-mix(in oklab, var(--gray-950) 5%, transparent);
+        --polder-rule: color-mix(in oklab, var(--gray-200) 50%, transparent);
+        --polder-layer-order: misordered;
 
-        background-color: var(--farcaster-ground);
+        background-color: var(--polder-ground);
     }
 
     .dark .fi-body {
-        --farcaster-ground: var(--gray-900);
-        --farcaster-surface: var(--gray-950);
-        --farcaster-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
-        --farcaster-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
+        --polder-ground: var(--gray-900);
+        --polder-surface: var(--gray-950);
+        --polder-surface-ring: color-mix(in oklab, var(--color-white) 10%, transparent);
+        --polder-rule: color-mix(in oklab, var(--gray-700) 50%, transparent);
     }
 
     .fi-body,
@@ -46,14 +46,14 @@
     .fi-main-ctn {
         /* overflow-clip, not hidden: hidden makes a scroll container and breaks position: sticky inside */
         @apply min-h-svh overflow-clip;
-        background-color: var(--farcaster-surface);
+        background-color: var(--polder-surface);
 
         @variant lg {
             @apply rounded-xl ring-1;
-            --tw-ring-color: var(--farcaster-surface-ring);
-            margin: var(--farcaster-inset);
-            margin-inline-start: calc(var(--farcaster-inset) / 2);
-            min-height: calc(100svh - 2 * var(--farcaster-inset));
+            --tw-ring-color: var(--polder-surface-ring);
+            margin: var(--polder-inset);
+            margin-inline-start: calc(var(--polder-inset) / 2);
+            min-height: calc(100svh - 2 * var(--polder-inset));
         }
     }
 
@@ -73,7 +73,7 @@
 
     .fi-sidebar.fi-main-sidebar {
         @apply border-e-0 p-3;
-        background-color: var(--farcaster-ground);
+        background-color: var(--polder-ground);
     }
 
     .fi-sidebar-nav-groups {
@@ -94,13 +94,13 @@
 
     /* Breadcrumb bar */
 
-    .farcaster-breadcrumb-bar {
-        --spacing: var(--farcaster-control-spacing);
+    .polder-breadcrumb-bar {
+        --spacing: var(--polder-control-spacing);
         @apply -mx-4 flex h-16 shrink-0 items-center gap-2 border-b px-4;
-        border-color: var(--farcaster-rule);
+        border-color: var(--polder-rule);
     }
 
-    .farcaster-sidebar-toggle {
+    .polder-sidebar-toggle {
         @apply -ms-1 inline-flex size-7 shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200;
 
         & svg {
@@ -108,7 +108,7 @@
         }
     }
 
-    .farcaster-breadcrumb-bar-end {
+    .polder-breadcrumb-bar-end {
         @apply ms-auto flex items-center;
     }
 
@@ -141,11 +141,11 @@
 
     .fi-input-wrp,
     .fi-select-wrp {
-        --spacing: var(--farcaster-control-spacing);
+        --spacing: var(--polder-control-spacing);
     }
 
     .fi-btn {
-        --spacing: var(--farcaster-control-spacing);
+        --spacing: var(--polder-control-spacing);
         @apply gap-2;
     }
 
@@ -195,7 +195,7 @@
     }
 
     .fi-user-menu-trigger:hover,
-    .fi-user-menu-trigger.farcaster-user-menu-trigger-active {
+    .fi-user-menu-trigger.polder-user-menu-trigger-active {
         @apply bg-gray-100 dark:bg-gray-800;
     }
 
@@ -203,33 +203,33 @@
         @apply flex-1 truncate font-medium text-gray-950 dark:text-gray-50;
     }
 
-    .farcaster-user-menu-trigger-icon {
+    .polder-user-menu-trigger-icon {
         @apply size-4 text-gray-500 dark:text-gray-400;
     }
 
-    .farcaster-user-menu-header {
+    .polder-user-menu-header {
         @apply flex items-center gap-3 p-3;
     }
 
-    .farcaster-user-menu-header-meta {
+    .polder-user-menu-header-meta {
         @apply min-w-0 flex-1;
     }
 
-    .farcaster-user-menu-header-name {
+    .polder-user-menu-header-name {
         @apply truncate text-sm font-semibold text-gray-950 dark:text-gray-50;
     }
 
-    .farcaster-user-menu-header-email {
+    .polder-user-menu-header-email {
         @apply truncate text-xs text-gray-500 dark:text-gray-400;
     }
 
-    .farcaster-user-menu-section-label {
+    .polder-user-menu-section-label {
         @apply px-3 pt-2 pb-1 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400;
     }
 }
 
 @layer utilities {
     .fi-body {
-        --farcaster-layer-order: ok;
+        --polder-layer-order: ok;
     }
 }

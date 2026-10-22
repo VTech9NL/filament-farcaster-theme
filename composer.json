@@ -1,6 +1,6 @@
 {
-    "name": "vtech9nl/filament-farcaster-theme",
-    "description": "Farcaster: an inset-layout theme for Filament panels, with light and dark mode and an optional compact density",
+    "name": "vtech9nl/filament-polder-theme",
+    "description": "Polder: an inset-layout theme for Filament panels, with light and dark mode and an optional compact density",
     "keywords": [
         "filament",
         "filament-plugin",
@@ -8,7 +8,7 @@
         "laravel",
         "theme"
     ],
-    "homepage": "https://github.com/VTech9NL/filament-farcaster-theme",
+    "homepage": "https://github.com/VTech9NL/filament-polder-theme",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VTech9NL\\FarcasterTheme\\": "src"
+            "VTech9NL\\PolderTheme\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VTech9NL\\FarcasterTheme\\Tests\\": "tests"
+            "VTech9NL\\PolderTheme\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -53,7 +53,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VTech9NL\\FarcasterTheme\\FarcasterThemeServiceProvider"
+                "VTech9NL\\PolderTheme\\PolderThemeServiceProvider"
             ]
         }
     },
