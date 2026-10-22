@@ -47,12 +47,19 @@ class PolderThemeServiceProvider extends ServiceProvider
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::BODY_END,
-            fn (): string => (Filament::auth()->check() && $this->getPlugin()?->getMobileNavigation())
-                ? Blade::render(
+            function (): string {
+                $navigation = $this->getPlugin()?->getMobileNavigation();
+                $pageRoute = $this->getPageRoute();
+
+                if (! Filament::auth()->check() || ! $navigation?->pageContext($pageRoute)->isVisible()) {
+                    return '';
+                }
+
+                return Blade::render(
                     "@livewire('polder-theme.mobile-navigation-bar', ['routeName' => \$routeName, 'routeParameters' => \$routeParameters])",
-                    $this->getPageRoute(),
-                )
-                : '',
+                    $pageRoute,
+                );
+            },
         );
     }
 

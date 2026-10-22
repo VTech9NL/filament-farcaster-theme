@@ -145,6 +145,16 @@ it('offers the user menu and the other tenants in the Account sheet', function (
         ->toContain('Difference Engine');
 });
 
+it('hides the bar where the app says so', function () {
+    $navigation = Filament::getPanel('app')->getPlugin(PolderThemePlugin::ID)->getMobileNavigation();
+
+    $navigation->visible(fn (?string $routeName): bool => $routeName !== 'filament.app.pages.dashboard');
+    get('/app/'.$this->team->getKey())->assertOk()->assertDontSee('polder-theme-mobile-navigation');
+
+    $navigation->visible(fn (?string $routeName): bool => $routeName === 'filament.app.pages.dashboard');
+    get('/app/'.$this->team->getKey())->assertOk()->assertSee('polder-theme-mobile-navigation');
+});
+
 it('renders no bar on a panel without mobile navigation', function () {
     get('/compact')->assertOk()->assertDontSee('polder-theme-mobile-navigation');
 });

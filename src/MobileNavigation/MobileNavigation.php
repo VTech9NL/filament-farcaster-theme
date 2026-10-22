@@ -23,6 +23,8 @@ class MobileNavigation
 
     protected MobileNavigationButton $centerButton = MobileNavigationButton::Raised;
 
+    protected bool|Closure $isVisible = true;
+
     public static function make(): static
     {
         return app(static::class);
@@ -51,6 +53,18 @@ class MobileNavigation
         $this->centerButton = $button;
 
         return $this;
+    }
+
+    public function visible(bool|Closure $condition = true): static
+    {
+        $this->isVisible = $condition;
+
+        return $this;
+    }
+
+    public function isVisible(): bool
+    {
+        return (bool) $this->evaluate($this->isVisible);
     }
 
     public function getStyle(): MobileNavigationStyle
